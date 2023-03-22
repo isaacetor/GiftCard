@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 const GetStarted = () => {
@@ -9,6 +10,10 @@ const GetStarted = () => {
           <Head>
             Sign Up to <br /> get started
           </Head>
+          <NavLink
+            to="/select-account"
+            style={{ textDecoration: "none" }}
+          ></NavLink>
           <Button>Sign Up</Button>
         </Wrapper>
       </Container>
@@ -42,15 +47,16 @@ const Head = styled.div`
 const Button = styled.button`
   border-radius: 10px;
   color: white;
-  background-color: #a002a0f2;
-  width: 140px;
-  height: 40px;
+  background-color: #a35ef7;
+  padding: 15px 60px;
   border: none;
   outline: none;
-  font-size: 15px;
+  font-size: 17px;
   margin-top: 30px;
   transition: all 350ms;
+
   :hover {
-    background-color: #940294;
+    cursor: pointer;
+    background-color: #913cf9;
   }
 `;
