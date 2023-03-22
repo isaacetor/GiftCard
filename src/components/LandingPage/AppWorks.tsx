@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import pic from "../../Assets/abPhone.webp";
+import create from "../../Assets/create-icon.svg";
+import trade from "../../Assets/begin-icon.svg";
+import wait from "../../Assets/wait-icon.svg";
+import withdraw from "../../Assets/withdraw-icon.svg";
 import AboutCard from "./props/Props.About";
 
 const AppWorks = () => {
@@ -11,36 +15,36 @@ const AppWorks = () => {
           <Head>
             <div>
               <H>Wondering How the App Works?</H>
-              <P>Make your trade in few easy steps</P>
+              <P>Buy your cards in few easy steps</P>
               <Picture src={pic} />
             </div>
           </Head>
           <Cards>
             <AboutCard
-              logo={pic}
+              logo={create}
               heading="Create Account"
               par="Create an account with your valid details and add your bank account / mobile money."
             />
             <AboutCard
-              logo={pic}
+              logo={trade}
               heading="Choose a Gift Card"
-              par="A business card allows you trade in a particular business, a Master Card allows you trade accross all our registered businesses"
+              par="A business card allows you shop in a particular marketplace."
             />{" "}
             <AboutCard
-              logo={pic}
+              logo={wait}
               heading="Buy a Gift Card"
               par="Make payment to purchase a Gift Card through KoraPay's secure payment platform."
             />{" "}
             <AboutCard
-              logo={pic}
+              logo={withdraw}
               heading="Use the Gift Card"
               par="You can excercise a gift card's value on purchasing products across our registered businesses without cash or money transfer"
             />{" "}
-            <AboutCard
+            {/* <AboutCard
               logo={pic}
               heading="Transfer your Gift Card"
               par="You could either sell your gift card to any of our registered users, or gift it to someone."
-            />
+            /> */}
             <Picture2 src={pic} />
           </Cards>
         </Wrapper>
@@ -57,23 +61,26 @@ const Container = styled.div`
   align-items: center;
 `;
 const Wrapper = styled.div`
-  width: 95%;
+  width: 90%;
   height: 95%;
+  margin-top: 120px;
   @media screen and (min-width: 1200px) {
     display: flex;
-    gap: 40px;
+    gap: 60px;
   }
 `;
 const H = styled.div`
   font-size: 31px;
   font-weight: bold;
+  color: #333333;
+  text-transform: capitalize;
   @media screen and (min-width: 1000px) {
     font-size: 40px;
   }
 `;
 const P = styled.div`
-  margin-top: 30px;
-  font-weight: 600;
+  margin-top: 20px;
+  font-weight: 400;
   font-size: 14px;
   @media screen and (min-width: 1000px) {
     font-size: 20px;
@@ -82,12 +89,12 @@ const P = styled.div`
 const Head = styled.div`
   color: #383838;
   @media screen and (min-width: 1200px) {
-    width: 20%;
+    width: 25%;
   }
 `;
 const Picture = styled.img`
   width: 100%;
-  height: 250px;
+  height: 100%;
   object-fit: cover;
   object-position: center;
   border-radius: 20px;
@@ -118,6 +125,6 @@ const Cards = styled.div`
   gap: 20px;
   margin-top: 20px;
   @media screen and (min-width: 1200px) {
-    width: calc(80% - 40px);
+    width: calc(75% - 40px);
   }
 `;

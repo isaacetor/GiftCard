@@ -6,7 +6,9 @@ const GetStarted = () => {
     <div>
       <Container>
         <Wrapper>
-          <Head>Sign Up to get started</Head>
+          <Head>
+            Sign Up to <br /> get started
+          </Head>
           <Button>Sign Up</Button>
         </Wrapper>
       </Container>
@@ -17,6 +19,7 @@ const GetStarted = () => {
 export default GetStarted;
 
 const Container = styled.div`
+  height: 50vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,9 +34,10 @@ const Wrapper = styled.div`
 `;
 const Head = styled.div`
   font-size: 50px;
-  color: #024edb;
-  font-weight: bold;
+  color: #5352ec;
+  font-weight: 800;
   text-align: center;
+  text-transform: capitalize;
 `;
 const Button = styled.button`
   border-radius: 10px;
