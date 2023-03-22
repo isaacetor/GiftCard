@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import DashboardBars from "./Props.Bars";
 import { HiHome, HiBell } from "react-icons/hi";
 import { MdInsertChart } from "react-icons/md";
 import { FaWallet } from "react-icons/fa";
@@ -11,6 +10,7 @@ import pic from "../Images/dashpng.png";
 import { TbArrowsLeftRight } from "react-icons/tb";
 import { TiStarFullOutline } from "react-icons/ti";
 import { useNavigate } from "react-router-dom";
+import DashboardBars from "./Props.Bars";
 
 interface iDisplay {
   sow: boolean;

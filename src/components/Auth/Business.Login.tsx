@@ -6,9 +6,77 @@ import phone from "../../Assets/phone.png";
 import flower from "../../Assets/flower.svg";
 import { BsPerson } from "react-icons/bs";
 import { TbSquareKey } from "react-icons/tb";
-import { NavLink } from "react-router-dom";
+import * as yup from "yup";
+import Swal from "sweetalert2";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { NavLink, useNavigate } from "react-router-dom";
+import { UseAppDispatch } from "../Global/Store";
+import { useMutation } from "@tanstack/react-query";
+import { LoginBizUser } from "../API/Endpoint";
 
-const Login = () => {
+const BizzLogin = () => {
+  const navigate = useNavigate();
+  const dispatch = UseAppDispatch();
+
+  const userSchema = yup
+    .object({
+      email: yup.string().required("please enter an email"),
+      password: yup.string().required("please enter a password"),
+    })
+    .required();
+  type formData = yup.InferType<typeof userSchema>;
+
+  const {
+    handleSubmit,
+    formState: { errors },
+    reset,
+    register,
+  } = useForm<formData>({
+    resolver: yupResolver(userSchema),
+  });
+
+  const posting = useMutation({
+    mutationKey: ["login"],
+    mutationFn: LoginBizUser,
+
+    onSuccess: (myData) => {
+      console.log("user", myData);
+      //   dispatch(login(myData.data));
+
+      Swal.fire({
+        title: "Login succesful",
+        html: "Taking you to your dashboard",
+        timer: 1000,
+        timerProgressBar: true,
+
+        didOpen: () => {
+          Swal.showLoading();
+        },
+
+        willClose: () => {
+          navigate("/dashboard");
+        },
+      });
+    },
+    onError: (error: any) => {
+      console.log(" this is error", error);
+      // handle error here
+      Swal.fire({
+        title: "registration failed",
+        // text: error.response?.data?.message,
+        text: error.message,
+        icon: "error",
+      });
+    },
+  });
+
+  const Submit = handleSubmit(async (data) => {
+    posting.mutate(data);
+
+    // reset()
+  });
+
   return (
     <div>
       <Container>
@@ -28,13 +96,10 @@ const Login = () => {
               height: "360px",
             }}
           />
-          <NavLink to="/" style={{ textDecoration: "none" }}>
-            <h4>MAVERICK</h4>
-          </NavLink>
-
-          <H1>
+          <h4>MAVERICK</h4>
+          <h1>
             Glad to have <br /> you back
-          </H1>
+          </h1>
           <p>
             Glad to have you back We are glad to have you back ☺️, Let’s get you
             trading
@@ -46,7 +111,7 @@ const Login = () => {
             style={{ position: "absolute", bottom: "1%", left: "1px" }}
           />
         </Left>
-        <Right>
+        <Right onSubmit={Submit}>
           <h2>Log in</h2>
           <Inputs>
             <BsPerson
@@ -55,7 +120,13 @@ const Login = () => {
                 fontSize: "25px",
               }}
             />
-            <input placeholder="Enter email or username" />
+            <input
+              {...register("email")}
+              placeholder="Enter Email"
+              required
+              type="email"
+            />
+            <span>{errors?.email && errors?.email?.message}</span>
           </Inputs>
 
           <Inputs>
@@ -65,34 +136,28 @@ const Login = () => {
                 fontSize: "25px",
               }}
             />
-            <input placeholder="Password" />
+            <input
+              {...register("password")}
+              placeholder="Password"
+              required
+              type="password"
+            />
+            <span>{errors?.password && errors?.password?.message}</span>
           </Inputs>
-          <Div
-            style={{
-              display: "flex",
-              marginLeft: "60px",
-              marginTop: "20px",
-              alignItems: "center",
-            }}
-          >
+          <Div>
             <input
               type="checkbox"
+              required
               style={{ width: "15px", height: "15px", background: "#f9f4ff" }}
             />
-            <p
-              style={{
-                margin: "0",
-                marginLeft: "10px",
-                fontSize: "15px",
-              }}
-            >
-              Always remember me
-            </p>
+            <p>Always remember me</p>
           </Div>
-          <Button>Log in</Button>
+          <Button type="submit">Log in</Button>
           <P>
-            I don't have an account.{" "}
-            <span style={{ color: "blue" }}>Create one</span>
+            I don't have an account.
+            <NavLink to="/business/register" style={{ textDecoration: "none" }}>
+              <span style={{ color: "blue" }}>Create one</span>
+            </NavLink>
           </P>
         </Right>
       </Container>
@@ -100,56 +165,7 @@ const Login = () => {
   );
 };
 
-export default Login;
-
-const H1 = styled.h1`
-  color: white;
-  font-size: 44px;
-  text-align: center;
-  margin-top: 50px;
-  animation: typing 4s steps(20);
-  white-space: nowrap;
-  overflow: hidden;
-  /* border-right: 3px solid black; */
-
-  @media screen and (max-width: 960px) {
-    font-size: 30px;
-  }
-
-  @keyframes typing {
-    from {
-      width: 0;
-    }
-    to {
-      width: 100%;
-    }
-  }
-`;
-const P = styled.p`
-  margin: 0;
-  margin-left: 60px;
-  font-size: 15px;
-  margin-top: 20px;
-
-  @media screen and (max-width: 960px) {
-    margin: 0;
-    font-size: 15px;
-    margin-top: 10px;
-    width: 80%;
-  }
-`;
-
-const Div = styled.div`
-  display: flex;
-  margin-left: 60px;
-  margin-top: 20px;
-  align-items: center;
-  @media screen and (max-width: 960px) {
-    margin: 0;
-    font-size: 10px;
-    width: 80%;
-  }
-`;
+export default BizzLogin;
 
 const Button = styled.button`
   width: 170px;
@@ -166,6 +182,32 @@ const Button = styled.button`
   @media screen and (max-width: 960px) {
     margin: 0;
     margin-top: 20px;
+    width: 80%;
+  }
+`;
+
+const Div = styled.div`
+  display: flex;
+  margin-left: 60px;
+  margin-top: 20px;
+  align-items: center;
+  @media screen and (max-width: 960px) {
+    margin: 0;
+    font-size: 15px;
+    width: 80%;
+  }
+`;
+
+const P = styled.p`
+  margin: 0;
+  margin-left: 60px;
+  font-size: 15px;
+  margin-top: 20px;
+
+  @media screen and (max-width: 960px) {
+    margin: 0;
+    font-size: 15px;
+    margin-top: 10px;
     width: 80%;
   }
 `;
@@ -201,7 +243,7 @@ const Inputs = styled.div`
   }
 `;
 
-const Right = styled.div`
+const Right = styled.form`
   h2 {
     margin-top: 60px;
     margin-left: 60px;
@@ -233,13 +275,6 @@ const Img = styled.img`
   left: 35%;
   bottom: 1px;
 
-  @media screen and (max-width: 960px) {
-    position: static;
-    height: 210px;
-    margin-top: 60px;
-    margin-left: 120px;
-  }
-
   :hover {
     animation: bounce 0.5s;
   }
@@ -251,6 +286,13 @@ const Img = styled.img`
     50% {
       transform: translate(-20%, -20%) scale(1.2);
     }
+  }
+
+  @media screen and (max-width: 960px) {
+    position: static;
+    height: 210px;
+    margin-top: 60px;
+    margin-left: 120px;
   }
 `;
 
@@ -283,16 +325,27 @@ const Left = styled.div`
     margin-top: 30px;
   }
 
-  // h1 {
-  // //   color: white;
-  // //   font-size: 44px;
-  // //   text-align: center;
-  // //   margin-top: 50px;
+  h1 {
+    color: white;
+    font-size: 44px;
+    text-align: center;
+    margin-top: 50px;
+    animation: typing 4s steps(20);
+    white-space: nowrap;
+    overflow: hidden;
 
-  // //   @media screen and (max-width: 960px) {
-  // //     font-size: 30px;
-  // //   }
-  // }
+    @media screen and (max-width: 960px) {
+      font-size: 30px;
+    }
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
+    }
+  }
   p {
     color: white;
     margin: 0;

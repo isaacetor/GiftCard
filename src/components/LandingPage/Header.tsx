@@ -58,12 +58,12 @@ const Header = () => {
             </LogoNav>
 
             <ButtonHold>
-              <NavLink to="/login" style={{ textDecoration: "none" }}>
+              <NavLink to="/select-account" style={{ textDecoration: "none" }}>
                 <Button color="#9342F6" bg="#fff">
                   Log in
                 </Button>
               </NavLink>
-              <NavLink to="/register" style={{ textDecoration: "none" }}>
+              <NavLink to="/select-account" style={{ textDecoration: "none" }}>
                 <Button2 color="#fff" bg="#9342F6" style={{}}>
                   Create an account
                 </Button2>

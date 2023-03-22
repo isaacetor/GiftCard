@@ -8,9 +8,68 @@ import { BsPerson } from "react-icons/bs";
 import { IoMailOutline } from "react-icons/io5";
 import { BsTelephone } from "react-icons/bs";
 import { TbSquareKey } from "react-icons/tb";
-import { NavLink } from "react-router-dom";
+import * as yup from "yup";
+import Swal from "sweetalert2";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { NavLink, useNavigate } from "react-router-dom";
+import { UseAppDispatch } from "../Global/Store";
+import { useMutation } from "@tanstack/react-query";
+import { createBizUser } from "../API/Endpoint";
 
-const Signup = () => {
+const BizzSignUp = () => {
+  const navigate = useNavigate();
+
+  const userSchema = yup
+    .object({
+      name: yup.string().required("please enter a name"),
+      email: yup.string().required("please enter an email"),
+      phonenum: yup.number().required("please enter an email"),
+      password: yup.string().required("please enter a password"),
+      confirmPassword: yup
+        .string()
+        .oneOf([yup.ref("password")], "passwords must match")
+        .required("please confirm your password"),
+    })
+    .required();
+  type formData = yup.InferType<typeof userSchema>;
+
+  const {
+    handleSubmit,
+    formState: { errors },
+    reset,
+    register,
+  } = useForm<formData>({
+    resolver: yupResolver(userSchema),
+  });
+
+  const posting = useMutation({
+    mutationKey: ["created"],
+    mutationFn: createBizUser,
+
+    onSuccess: (myData) => {
+      console.log("user", myData);
+      //   dispatch(login(myData.data));
+      Swal.fire({
+        title: "registration succesful",
+        html: "redirecting to login",
+        timer: 1000,
+        timerProgressBar: true,
+
+        willClose: () => {
+          navigate("/business/login");
+        },
+      });
+    },
+  });
+
+  const Submit = handleSubmit(async (data) => {
+    // console.log(data);
+    posting.mutate(data);
+
+    // reset()
+  });
+
   return (
     <div>
       <Container>
@@ -34,7 +93,7 @@ const Signup = () => {
             <h4>MAVERICK</h4>
           </NavLink>
           <H1>
-            Let’s Get <br /> You Started
+            Register Your <br /> Business Today!
           </H1>
           <p>
             You’re a few steps away. Fill the required form and start trading
@@ -47,7 +106,7 @@ const Signup = () => {
             style={{ position: "absolute", bottom: "1%", left: "1px" }}
           />
         </Left>
-        <Right>
+        <Right onSubmit={Submit}>
           <h2>Create an Account</h2>
           <p>Let us know you 😎</p>
           <Box>
@@ -59,18 +118,14 @@ const Signup = () => {
                   color: "silver",
                 }}
               />
-              <input placeholder="Name" />
-            </Inputs>
-            <Inputs>
-              <BsPerson
-                style={{
-                  marginLeft: "15px",
-                  fontSize: "25px",
-                  color: "silver",
-                }}
+              <input
+                {...register("name")}
+                placeholder="Business Name"
+                required
               />
-              <input placeholder="UserName" />
+              <Erro>{errors?.name && errors?.name?.message}</Erro>
             </Inputs>
+
             <Inputs>
               <IoMailOutline
                 style={{
@@ -79,7 +134,12 @@ const Signup = () => {
                   color: "silver",
                 }}
               />
-              <input placeholder="E-mail address" />
+              <input
+                {...register("email")}
+                placeholder="Business e-mail"
+                required
+              />
+              <Erro>{errors?.email && errors?.email?.message}</Erro>
             </Inputs>
             <Inputs>
               <BsTelephone
@@ -89,7 +149,13 @@ const Signup = () => {
                   color: "silver",
                 }}
               />
-              <input placeholder="Phone-no" />
+              <input
+                {...register("phonenum")}
+                placeholder="Phone-no"
+                required
+                minLength={11}
+              />
+              <Erro>{errors?.phonenum && errors?.phonenum?.message}</Erro>
             </Inputs>
             <Inputs>
               <TbSquareKey
@@ -99,7 +165,12 @@ const Signup = () => {
                   color: "silver",
                 }}
               />
-              <input placeholder="Password" />
+              <input
+                {...register("password")}
+                placeholder="Password"
+                required
+              />
+              <Erro>{errors?.password && errors?.password?.message}</Erro>
             </Inputs>
             <Inputs>
               <TbSquareKey
@@ -109,13 +180,21 @@ const Signup = () => {
                   color: "silver",
                 }}
               />
-              <input placeholder="Confirm password" />
+              <input
+                {...register("confirmPassword")}
+                placeholder="Confirm password"
+                required
+              />
+              <Erro>
+                {errors?.confirmPassword && errors?.confirmPassword?.message}
+              </Erro>
             </Inputs>
           </Box>
           <Div>
             <input
               type="checkbox"
               style={{ width: "15px", height: "15px", background: "#f9f4ff" }}
+              required
             />
             <p
               style={{
@@ -124,19 +203,43 @@ const Signup = () => {
                 fontSize: "15px",
               }}
             >
-              I agree to GIFTCARDSTONAIRA{" "}
+              I agree to MAVERICK'S
               <span style={{ color: "blue" }}>Terms and Conditions</span> &
               <span style={{ color: "blue" }}>Privacy Policy</span>.
             </p>
           </Div>
-          <Button>Create Account</Button>
+          <Button type="submit">Create Account</Button>
         </Right>
       </Container>
     </div>
   );
 };
 
-export default Signup;
+export default BizzSignUp;
+
+const Erro = styled.span`
+  font-size: 10px;
+  color: red;
+`;
+
+const Button = styled.button`
+  width: 170px;
+  height: 48px;
+  margin-left: 60px;
+  border: 0;
+  background-color: #8246f3;
+  color: white;
+  border-radius: 10px;
+  margin-top: 31px;
+  font-size: 16px;
+  cursor: pointer;
+
+  @media screen and (max-width: 960px) {
+    margin: 0;
+    margin-top: 20px;
+    width: 80%;
+  }
+`;
 
 const H1 = styled.h1`
   color: white;
@@ -162,42 +265,16 @@ const H1 = styled.h1`
   }
 `;
 
-const Button = styled.button`
-  width: 170px;
-  height: 48px;
-  margin-left: 60px;
-  border: 0;
-  background-color: #8246f3;
-  color: white;
-  border-radius: 10px;
-  margin-top: 31px;
-  font-size: 16px;
-  cursor: pointer;
-
-  @media screen and (max-width: 960px) {
-    margin: 0;
-    margin-top: 20px;
-    width: 80%;
-  }
-`;
-
 const Div = styled.div`
   display: flex;
   margin-left: 60px;
   margin-top: 20px;
   align-items: center;
-
   @media screen and (max-width: 960px) {
     margin: 0;
     font-size: 10px;
     margin-top: 10px;
     width: 80%;
-  }
-
-  p {
-    @media screen and (max-width: 960px) {
-      font-size: 10px;
-    }
   }
 `;
 
@@ -206,6 +283,7 @@ const Inputs = styled.div`
   border-radius: 10px;
   display: flex;
   align-items: center;
+  overflow: hidden;
 
   input {
     flex: 1;
@@ -218,6 +296,12 @@ const Inputs = styled.div`
     ::placeholder {
       color: silver;
     }
+  }
+
+  p {
+    margin: 0;
+    color: red;
+    font-size: 3px;
   }
 `;
 
@@ -234,10 +318,10 @@ const Box = styled.div`
 
   @media screen and (max-width: 960px) {
     width: 90%;
-    height: 480px;
+    height: 450px;
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: repeat(1, 60px);
+    grid-template-rows: repeat(1, 70px);
     margin: 0;
     margin-top: 20px;
   }
@@ -252,13 +336,6 @@ const Img = styled.img`
   left: 35%;
   bottom: 1px;
 
-  @media screen and (max-width: 960px) {
-    position: static;
-    height: 210px;
-    margin-top: 60px;
-    margin-left: 120px;
-  }
-
   :hover {
     animation: bounce 0.5s;
   }
@@ -270,6 +347,13 @@ const Img = styled.img`
     50% {
       transform: translate(-20%, -20%) scale(1.2);
     }
+  }
+
+  @media screen and (max-width: 960px) {
+    position: static;
+    height: 210px;
+    margin-top: 60px;
+    margin-left: 120px;
   }
 `;
 
@@ -315,7 +399,7 @@ const Left = styled.div`
     }
   }
 `;
-const Right = styled.div`
+const Right = styled.form`
   h2 {
     margin-top: 60px;
     margin-left: 60px;
@@ -341,7 +425,6 @@ const Right = styled.div`
       font-size: 18px;
     }
   }
-
   @media screen and (max-width: 960px) {
     width: 100%;
     display: flex;
