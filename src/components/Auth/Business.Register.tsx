@@ -380,8 +380,7 @@ const Left = styled.div`
   }
   h4 {
     color: white;
-    font-size: 21px;
-    font-family: Inria serif;
+    font-size: 1.5rem;
     font-weight: 600;
     margin-top: 30px;
   }

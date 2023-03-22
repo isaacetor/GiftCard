@@ -6,9 +6,11 @@ const Footer = () => {
     <div>
       <Container>
         <LogoPart>
-          <Logo>GIFTHAVEN</Logo>
-          <Text>A Unique trading business perfectly built for you.</Text>
-          <Button>Log In</Button>
+          <Logo>MAVERICKS</Logo>
+          <Text>
+            A Unique giftcard purchasing business perfectly built for you.
+          </Text>
+          <Button>Get Started</Button>
         </LogoPart>
         <Connect>
           <Heading>Company</Heading>
@@ -34,11 +36,15 @@ const Container = styled.div`
   font-size: 12px;
   @media screen and (min-width: 1000px) {
     font-size: 18px;
+    width: 85%;
+    padding: 50px;
+    margin: auto;
+    margin-bottom: 50px;
   }
   border-radius: 10px;
   margin: 10px;
   padding: 15px;
-  background-color: #eeeeee7a;
+  background-color: #f2f2f2;
   color: #525151;
   display: flex;
   flex-wrap: wrap;
@@ -62,21 +68,29 @@ const Trailing = styled.div`
   }
 `;
 const Connect = styled.div``;
-const Logo = styled.div``;
+const Logo = styled.div`
+  font-weight: 600;
+  color: #5352ec;
+`;
 const Text = styled.div`
   margin-top: 20px;
   margin-bottom: 20px;
+  width: 70%;
+  font-size: 15px;
+  line-height: 1.2rem;
 `;
 const Button = styled.button`
   border-radius: 10px;
   color: white;
-  background-color: #a002a0f2;
-  width: 90px;
-  height: 35px;
+  background-color: #9342f6;
+  padding: 15px 40px;
+  font-size: 16px;
+  margin-top: 20px;
   border: none;
   outline: none;
   transition: all 350ms;
   :hover {
-    background-color: #940294;
+    cursor: pointer;
+    background-color: #7f22f1;
   }
 `;

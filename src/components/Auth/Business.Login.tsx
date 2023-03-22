@@ -96,7 +96,9 @@ const BizzLogin = () => {
               height: "360px",
             }}
           />
-          <h4>MAVERICK</h4>
+          <NavLink to="/" style={{ textDecoration: "none" }}>
+            <h4>MAVERICK</h4>
+          </NavLink>
           <h1>
             Glad to have <br /> you back
           </h1>
@@ -118,6 +120,7 @@ const BizzLogin = () => {
               style={{
                 marginLeft: "15px",
                 fontSize: "25px",
+                opacity: "0.4",
               }}
             />
             <input
@@ -134,6 +137,7 @@ const BizzLogin = () => {
               style={{
                 marginLeft: "15px",
                 fontSize: "25px",
+                opacity: "0.4",
               }}
             />
             <input
@@ -218,7 +222,7 @@ const Inputs = styled.div`
   display: flex;
   align-items: center;
   width: 430px;
-  height: 55px;
+  height: 80px;
   margin-bottom: 20px;
   margin-left: 60px;
 
@@ -234,22 +238,24 @@ const Inputs = styled.div`
     border: none;
     outline: none;
     background-color: transparent;
-    margin-left: 7px;
+    margin-left: 10px;
+    font-size: 18px;
 
     ::placeholder {
-      color: silver;
-      font-size: 15px;
+      color: #c0c0c0b3;
     }
   }
 `;
 
 const Right = styled.form`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   h2 {
-    margin-top: 60px;
     margin-left: 60px;
     font-size: 36px;
     margin-bottom: 60px;
-
+    color: #333333;
     @media screen and (max-width: 960px) {
       margin: 0;
       margin-top: 10px;
@@ -319,8 +325,7 @@ const Left = styled.div`
   }
   h4 {
     color: white;
-    font-size: 21px;
-    font-family: Inria serif;
+    font-size: 1.5rem;
     font-weight: 600;
     margin-top: 30px;
   }
