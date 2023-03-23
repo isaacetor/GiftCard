@@ -26,7 +26,7 @@ const ProfileComp = () => {
             <p>
               Welcome,
               <span style={{ fontWeight: "650", textTransform: "capitalize" }}>
-                {user?.name?.toUpperCase()}
+                {user?.name}
               </span>
             </p>
             <Hold>

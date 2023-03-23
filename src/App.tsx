@@ -7,9 +7,9 @@ function App() {
   return (
     <div>
       <HomeRoute />
-      <PrivateRoute>
-        <BusinessRoute />
-      </PrivateRoute>
+      {/* <PrivateRoute> */}
+      <BusinessRoute />
+      {/* </PrivateRoute> */}
     </div>
   );
 }

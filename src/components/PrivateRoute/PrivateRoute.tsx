@@ -7,7 +7,11 @@ const PrivateRoute = ({ children }: any) => {
 
   if (user?.status === "Business") {
     return children;
-  } else if (user?.status === "User") {
+  } else {
+    <Navigate to="/" replace />;
+  }
+
+  if (user?.status === "User") {
     return children;
   } else {
     <Navigate to="/" replace />;
