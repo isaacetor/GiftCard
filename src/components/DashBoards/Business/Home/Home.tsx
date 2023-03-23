@@ -16,7 +16,7 @@ const ProfileComp = () => {
     queryFn: () => getOneBiz(user?._id),
   });
 
-  console.log(fetchUser);
+  console.log("this user", fetchUser);
 
   return (
     <div style={{ overflowX: "hidden" }}>
@@ -26,7 +26,7 @@ const ProfileComp = () => {
             <p>
               Welcome,
               <span style={{ fontWeight: "650", textTransform: "capitalize" }}>
-                {user?.name}
+                {user?.name?.toUpperCase()}
               </span>
             </p>
             <Hold>

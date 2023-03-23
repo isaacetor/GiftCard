@@ -5,6 +5,7 @@ export interface BusinessData {
   phoneNumber: string;
   password: string;
   confirmPassword: string;
+  status: string;
 }
 export interface UserData {
   name: string;
