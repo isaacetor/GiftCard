@@ -1,16 +1,16 @@
 import React from "react";
 import styled from "styled-components";
+import DashboardBars from "./Props.Bars";
 import { HiHome, HiBell } from "react-icons/hi";
 import { MdInsertChart } from "react-icons/md";
 import { FaWallet } from "react-icons/fa";
 import { AiFillMessage } from "react-icons/ai";
 import { CiLogout } from "react-icons/ci";
 import { BsPersonFill } from "react-icons/bs";
-import pic from "../Images/dashpng.png";
+import pic from "../../../Assets/phone.png";
 import { TbArrowsLeftRight } from "react-icons/tb";
 import { TiStarFullOutline } from "react-icons/ti";
 import { useNavigate } from "react-router-dom";
-import DashboardBars from "./Props.Bars";
 
 interface iDisplay {
   sow: boolean;
@@ -29,7 +29,7 @@ const Sidebar: React.FC<iDisplay> = ({ sow }) => {
   return (
     <div>
       <Container dsp={show ? "flex" : "none"}>
-        <Logo>GIFTHAVEN</Logo>
+        <Logo>MAVERICKS</Logo>
         <br />
         <br />
         <br />
@@ -178,7 +178,7 @@ const Sidebar: React.FC<iDisplay> = ({ sow }) => {
           <ImageWrapper>
             <img src={pic} />
             <Big>Get Started</Big>
-            <Small>Buy a GiftCard or Gift Someone</Small>
+            <Small>Create a GiftCard or Gift Someone</Small>
             <div
               style={{
                 display: "flex",

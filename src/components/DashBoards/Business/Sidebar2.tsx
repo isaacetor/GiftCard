@@ -1,32 +1,36 @@
 import React from "react";
 import styled from "styled-components";
+import DashboardBars from "./Props.Bars";
 import { HiHome, HiBell } from "react-icons/hi";
 import { MdInsertChart } from "react-icons/md";
 import { FaWallet } from "react-icons/fa";
 import { AiFillMessage } from "react-icons/ai";
 import { CiLogout } from "react-icons/ci";
 import { BsPersonFill } from "react-icons/bs";
-import pic from "../Images/dashpng.png";
+import pic from "../../../Assets/phone.png";
 import { TbArrowsLeftRight } from "react-icons/tb";
 import { TiStarFullOutline } from "react-icons/ti";
 import { useNavigate } from "react-router-dom";
-import DashboardBars from "./Props.Bars";
+import { UseAppDispatch } from "../../Global/Store";
+import { logout } from "../../Global/ReduxState";
 
 const Sidebar2 = () => {
+  const dispatch = UseAppDispatch();
+  const navigate = useNavigate();
+
   const [home, setHome] = React.useState(true);
   const [trans, setTrans] = React.useState(true);
   const [wallet, setWallet] = React.useState(true);
   const [notify, setNotify] = React.useState(true);
   const [support, setSupport] = React.useState(true);
   const [account, setAccount] = React.useState(true);
-  const [logout, setLogout] = React.useState(true);
+  const [logouts, setLogout] = React.useState(true);
   const [show, setShow] = React.useState(true);
-  const navigate = useNavigate();
 
   return (
     <div>
       <Container dsp={show ? "flex" : "none"}>
-        <Logo>GIFTHAVEN</Logo>
+        <Logo>MAVERICKS</Logo>
         <br />
         <br />
         <br />
@@ -40,7 +44,7 @@ const Sidebar2 = () => {
               setSupport(true);
               setAccount(true);
               setLogout(true);
-              navigate("/dashboard");
+              navigate("/business/dashboard");
             }}
           >
             <DashboardBars
@@ -60,7 +64,7 @@ const Sidebar2 = () => {
               setSupport(true);
               setAccount(true);
               setLogout(true);
-              navigate("/dashboard/history");
+              navigate("/business/history");
             }}
           >
             <DashboardBars
@@ -80,7 +84,7 @@ const Sidebar2 = () => {
               setSupport(true);
               setAccount(true);
               setLogout(true);
-              navigate("/dashboard/wallet");
+              navigate("/business/wallet");
             }}
           >
             <DashboardBars
@@ -100,7 +104,7 @@ const Sidebar2 = () => {
               setSupport(true);
               setAccount(true);
               setLogout(true);
-              navigate("/dashboard/notify");
+              navigate("/business/notify");
             }}
           >
             <DashboardBars
@@ -111,7 +115,7 @@ const Sidebar2 = () => {
               hov={notify ? " #4c2be2" : ""}
             />
           </div>
-          <div
+          {/* <div
             onClick={() => {
               setHome(true);
               setTrans(true);
@@ -120,7 +124,7 @@ const Sidebar2 = () => {
               setSupport(false);
               setAccount(true);
               setLogout(true);
-              navigate("/dashboard/support");
+              navigate("/business/support");
             }}
           >
             <DashboardBars
@@ -130,7 +134,7 @@ const Sidebar2 = () => {
               bd={support ? "" : "4px solid white"}
               hov={support ? " #4c2be2" : ""}
             />
-          </div>
+          </div> */}
           <div
             onClick={() => {
               setHome(true);
@@ -140,7 +144,7 @@ const Sidebar2 = () => {
               setSupport(true);
               setAccount(false);
               setLogout(true);
-              navigate("/dashboard/account");
+              navigate("/business/account");
             }}
           >
             <DashboardBars
@@ -160,14 +164,16 @@ const Sidebar2 = () => {
               setSupport(true);
               setAccount(true);
               setLogout(false);
+              dispatch(logout());
+              navigate("/");
             }}
           >
             <DashboardBars
               pic={<CiLogout />}
               routeName="Log Out"
-              cl={logout ? "#d1abf5" : "white"}
-              bd={logout ? "" : "4px solid white"}
-              hov={logout ? " #4c2be2" : ""}
+              cl={logouts ? "#d1abf5" : "white"}
+              bd={logouts ? "" : "4px solid white"}
+              hov={logouts ? " #4c2be2" : ""}
             />
           </div>
         </Bars>
@@ -281,6 +287,20 @@ const Container = styled.div<{ dsp: string }>`
   flex-direction: column;
   position: relative;
   /* transition: all 350ms; */
+  height: 100vh;
+  overflow: hidden;
+  overflow-y: scroll;
+  position: fixed;
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    background-color: #f5f5f5;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: silver;
+    border-radius: 10px;
+  }
+
   @media screen and (min-width: 801px) and (max-width: 1051px) {
     width: 60px;
     height: 100vh;

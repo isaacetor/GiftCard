@@ -1,7 +1,7 @@
 import React from "react";
 import { useRoutes } from "react-router-dom";
 import Home from "../DashBoards/Business/Home/Home";
-import UserHeader from "../DashBoards/User/User.Header";
+// import UserHeader from "../DashBoards/User/User.Header";
 
 const DashboardRoutes = () => {
   const elements = useRoutes([
@@ -32,7 +32,7 @@ const DashboardRoutes = () => {
   ]);
   return (
     <div>
-      <UserHeader />
+      {/* <UserHeader /> */}
       {elements}
     </div>
   );

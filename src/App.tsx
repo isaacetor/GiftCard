@@ -1,12 +1,12 @@
 import React from "react";
+import BusinessRoute from "./components/AllRoutes/BusinessRoute";
 import HomeRoute from "./components/AllRoutes/HomeRoute";
-import DashboardRoutes from "./components/AllRoutes/Routes.Dashboard";
 
 function App() {
   return (
     <div>
       <HomeRoute />
-      {/* <DashboardRoutes /> */}
+      <BusinessRoute />
     </div>
   );
 }

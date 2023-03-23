@@ -24,7 +24,7 @@ const BizzSignUp = () => {
     .object({
       name: yup.string().required("please enter a name"),
       email: yup.string().required("please enter an email"),
-      phonenum: yup.number().required("please enter an email"),
+      phoneNumber: yup.number().required("please your phone number"),
       password: yup.string().required("please enter a password"),
       confirmPassword: yup
         .string()
@@ -63,7 +63,7 @@ const BizzSignUp = () => {
     },
   });
 
-  const Submit = handleSubmit(async (data) => {
+  const Submit = handleSubmit(async (data: any) => {
     // console.log(data);
     posting.mutate(data);
 
@@ -150,12 +150,12 @@ const BizzSignUp = () => {
                 }}
               />
               <input
-                {...register("phonenum")}
+                {...register("phoneNumber")}
                 placeholder="Phone-no"
                 required
                 minLength={11}
               />
-              <Erro>{errors?.phonenum && errors?.phonenum?.message}</Erro>
+              <Erro>{errors?.phoneNumber && errors?.phoneNumber?.message}</Erro>
             </Inputs>
             <Inputs>
               <TbSquareKey

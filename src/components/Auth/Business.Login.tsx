@@ -14,6 +14,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { UseAppDispatch } from "../Global/Store";
 import { useMutation } from "@tanstack/react-query";
 import { LoginBizUser } from "../API/Endpoint";
+import { login } from "../Global/ReduxState";
 
 const BizzLogin = () => {
   const navigate = useNavigate();
@@ -41,8 +42,8 @@ const BizzLogin = () => {
     mutationFn: LoginBizUser,
 
     onSuccess: (myData) => {
-      console.log("user", myData);
-      //   dispatch(login(myData.data));
+      // console.log("user", myData);
+      dispatch(login(myData.data));
 
       Swal.fire({
         title: "Login succesful",
@@ -55,17 +56,16 @@ const BizzLogin = () => {
         },
 
         willClose: () => {
-          navigate("/dashboard");
+          navigate("/business/dashboard");
         },
       });
     },
     onError: (error: any) => {
-      console.log(" this is error", error);
+      // console.log(" this is error", error);
       // handle error here
       Swal.fire({
         title: "registration failed",
-        // text: error.response?.data?.message,
-        text: error.message,
+        text: "email or password incorrect",
         icon: "error",
       });
     },
