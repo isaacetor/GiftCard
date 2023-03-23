@@ -55,13 +55,14 @@ const Company = styled.div``;
 const Heading = styled.div`
   font-size: 14px;
   @media screen and (min-width: 1000px) {
-    font-size: 20px;
+    font-size: 18px;
   }
   font-weight: 600;
 `;
 const Trailing = styled.div`
   margin-top: 10px;
   margin-bottom: 10px;
+  font-size: 14px;
   cursor: pointer;
   :hover {
     color: blue;

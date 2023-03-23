@@ -11,7 +11,7 @@ const GetStarted = () => {
             Sign Up to <br /> get started
           </Head>
           <NavLink to="/select-account" style={{ textDecoration: "none" }}>
-            <Button>Sign Up</Button>
+            <Button>Get Started</Button>
           </NavLink>
         </Wrapper>
       </Container>

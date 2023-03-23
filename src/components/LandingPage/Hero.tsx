@@ -109,10 +109,23 @@ const Title = styled.h1`
 const Right = styled.div`
   width: 50%;
   height: 100vh;
-  /* display: flex; */
   align-items: center;
   justify-content: center;
   position: relative;
+  animation: slide-in 1s ease-out;
+  animation-fill-mode: forwards;
+  opacity: 0;
+
+  @keyframes slide-in {
+    0% {
+      transform: translateX(-50%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0%);
+      opacity: 1;
+    }
+  }
 
   @media screen and (max-width: 768px) {
     height: 55vh;
@@ -136,6 +149,20 @@ const Left = styled.div`
   height: 100vh;
   display: flex;
   align-items: center;
+  animation: slide-in-bottom 1s ease-out;
+  animation-fill-mode: forwards;
+  opacity: 0;
+
+  @keyframes slide-in-bottom {
+    0% {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0%);
+      opacity: 1;
+    }
+  }
 
   @media screen and (max-width: 768px) {
     height: 65vh;

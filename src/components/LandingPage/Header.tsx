@@ -249,6 +249,15 @@ const Container = styled.div<{
   color: ${({ color }) => color};
   box-shadow: ${({ boxShadow }) =>
     boxShadow ? "rgba(99, 99, 99, 0.079) 0px 2px 8px 0px" : "none"};
+  opacity: 0;
+  animation: fade-in 450ms ease-out forwards;
 
-  transition: all 0.5s ease;
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
