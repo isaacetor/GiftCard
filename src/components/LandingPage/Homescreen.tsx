@@ -15,9 +15,18 @@ const LazyComponent: FC<{ children: JSX.Element }> = ({ children }) => {
   const loadedRef = useRef(loaded);
 
   useEffect(() => {
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
     if (inView) {
-      setLoaded(true);
+      // Set a timeout of 1 seconds before setting the loaded state to true
+      timeoutId = setTimeout(() => {
+        setLoaded(true);
+      }, 1000);
     }
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
   }, [inView]);
 
   useEffect(() => {

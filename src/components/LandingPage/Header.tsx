@@ -3,11 +3,16 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { FiArrowUpRight } from "react-icons/fi";
 import { AiOutlineArrowUp } from "react-icons/ai";
-import { animateScroll as scroll } from "react-scroll";
+import { animateScroll as scroll, Link } from "react-scroll";
 
 const Header = () => {
   const [show, setShow] = React.useState(false);
   const [toTopshow, settoTopShow] = React.useState(false);
+  const [isActive, setIsActive] = React.useState(null);
+
+  const handleSetActive = (to: any) => {
+    setIsActive(to);
+  };
 
   const changeHeaderColor = () => {
     if (window.scrollY >= 250) {
@@ -30,14 +35,16 @@ const Header = () => {
   window.addEventListener("scroll", showBacktoTop);
   window.addEventListener("scroll", changeHeaderColor);
 
-  const toHero = () => {
+  const toHero = (to: any) => {
     scroll.scrollToTop();
+    // setIsActive("true");
   };
-  const toAbout = () => {
+  const toAbout = (to: any) => {
     scroll.scrollTo(900);
+    setIsActive(to);
   };
   const toFeatures = () => {
-    scroll.scrollTo(2300);
+    scroll.scrollTo(1850);
   };
   const toSupport = () => {
     scroll.scrollTo(2950);
@@ -52,17 +59,12 @@ const Header = () => {
               <Nav>
                 <Navigation onClick={toHero}>Home</Navigation>
                 <Navigation onClick={toAbout}>About</Navigation>
-                <Navigation onClick={toFeatures}>Features</Navigation>
-                <Navigation onClick={toSupport}>Customer support</Navigation>
+                <Navigation onClick={toFeatures}>How it works</Navigation>
+                <Navigation onClick={toSupport}>Get started</Navigation>
               </Nav>
             </LogoNav>
 
             <ButtonHold>
-              <NavLink to="/select-account" style={{ textDecoration: "none" }}>
-                <Button color="#9342F6" bg="#fff">
-                  Log in
-                </Button>
-              </NavLink>
               <NavLink to="/select-account" style={{ textDecoration: "none" }}>
                 <Button2 color="#fff" bg="#9342F6" style={{}}>
                   Create an account
@@ -90,11 +92,6 @@ const Header = () => {
             </LogoNav>
 
             <ButtonHold>
-              <NavLink to="/select-account" style={{ textDecoration: "none" }}>
-                <Button color="#9342F6" bg="#fff">
-                  Log in
-                </Button>
-              </NavLink>
               <NavLink to="/select-account" style={{ textDecoration: "none" }}>
                 <Button2 color="#fff" bg="#9342F6">
                   Create an account
