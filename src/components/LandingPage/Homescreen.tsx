@@ -1,20 +1,72 @@
-import React from "react";
-import About from "./About";
-import AppWorks from "./AppWorks";
-import Footer from "./Footer";
-import GetStarted from "./GetStarted";
+import React, { FC, lazy, Suspense, useEffect, useRef, useState } from "react";
+import { useInView } from "react-intersection-observer";
+import spinner from "../../Assets/Ripple.svg";
 import Header from "./Header";
 import Hero from "./Hero";
 
-const Homescreen = () => {
+const AboutPage = lazy(() => import("./About"));
+const AppWorks = lazy(() => import("./AppWorks"));
+const GetStarted = lazy(() => import("./GetStarted"));
+const Footer = lazy(() => import("./Footer"));
+
+const LazyComponent: FC<{ children: JSX.Element }> = ({ children }) => {
+  const [loaded, setLoaded] = useState(false);
+  const { ref, inView } = useInView();
+  const loadedRef = useRef(loaded);
+
+  useEffect(() => {
+    if (inView) {
+      setLoaded(true);
+    }
+  }, [inView]);
+
+  useEffect(() => {
+    if (loadedRef.current !== loaded && loaded) {
+      // This code will only be executed once when the component is loaded
+      loadedRef.current = true;
+    }
+  }, [loaded]);
+
+  return (
+    <div ref={ref}>
+      {loaded ? (
+        children
+      ) : (
+        <div
+          style={{ width: "100%", display: "flex", justifyContent: "center" }}
+        >
+          <img src={spinner} />
+        </div>
+      )}
+    </div>
+  );
+};
+
+const Homescreen: FC = () => {
   return (
     <div>
       <Header />
       <Hero />
-      <About />
-      <AppWorks />
-      <GetStarted />
-      <Footer />
+      <LazyComponent>
+        <Suspense fallback={null}>
+          <AboutPage />
+        </Suspense>
+      </LazyComponent>
+      <LazyComponent>
+        <Suspense fallback={null}>
+          <AppWorks />
+        </Suspense>
+      </LazyComponent>
+      <LazyComponent>
+        <Suspense fallback={null}>
+          <GetStarted />
+        </Suspense>
+      </LazyComponent>
+      <LazyComponent>
+        <Suspense fallback={null}>
+          <Footer />
+        </Suspense>
+      </LazyComponent>
     </div>
   );
 };

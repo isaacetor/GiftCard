@@ -42,7 +42,7 @@ const BizzLogin = () => {
     mutationFn: LoginBizUser,
 
     onSuccess: (myData) => {
-      // console.log("user", myData);
+      // console.log("this is the user", myData);
       dispatch(login(myData.data));
 
       Swal.fire({
@@ -73,7 +73,7 @@ const BizzLogin = () => {
 
   const Submit = handleSubmit(async (data) => {
     posting.mutate(data);
-
+    // console.log(data);
     // reset()
   });
 
@@ -225,6 +225,7 @@ const Inputs = styled.div`
   height: 80px;
   margin-bottom: 20px;
   margin-left: 60px;
+  overflow: hidden;
 
   @media screen and (max-width: 960px) {
     margin: 0;

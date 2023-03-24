@@ -8,7 +8,7 @@ const initialState = {
 };
 
 const ReduxState = createSlice({
-  name: "piggy",
+  name: "GiftCard",
   initialState,
   reducers: {
     login: (state, { payload }: PayloadAction<BusinessData>) => {

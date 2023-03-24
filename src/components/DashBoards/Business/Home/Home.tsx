@@ -11,12 +11,12 @@ import { getOneBiz } from "../../../API/Endpoint";
 const ProfileComp = () => {
   const user = useAppSelector((state) => state.bizClient);
 
-  const fetchUser = useQuery({
-    queryKey: ["business"],
-    queryFn: () => getOneBiz(user?._id),
-  });
+  // const fetchUser = useQuery({
+  //   queryKey: ["business"],
+  //   queryFn: () => getOneBiz(user?._id),
+  // });
 
-  console.log("this user", fetchUser);
+  // console.log("this user", user);
 
   return (
     <div style={{ overflowX: "hidden" }}>
